@@ -5,7 +5,6 @@
         <script type="text/javascript" src={{ url_for("static", filename="js/main.js") }}></script>
     </head>
     <body>
-        <div> <b> Rogue Flask </b></div>
 
         <div class="flexbox">
             <div class="thekeypad">
@@ -20,11 +19,22 @@
                 <div class="key"></div>
             </div>
 
+            <div>
+                <p>Score :</p>
+                <p id="score">0</p>
+                <p>Lives :</p>
+                <p id="lives">5</p>
+            </div>
+
             <div id="console" style="font-family: monospace;">
                 {% for i in range(n_row) %}
-                <div style="height:18px">
+                <div>
                     {% for j in range(n_col) %}
-                    <span id="{{ 'cell {}-{}'.format(i,j) }}"> {{ mapdata[i][j] }} </span>
+                        {% if mapdata[i][j] == '👣 ' %}
+                            <span class="back" id="{{ 'cell {}-{}'.format(i,j) }}"> {{ mapdata[i][j] }} </span>
+                        {% else %}
+                            <span id="{{ 'cell {}-{}'.format(i,j) }}"> {{ mapdata[i][j] }} </span>
+                        {% endif %}
                     {% endfor %}
                 </div>
                 {% endfor %}
