@@ -35,7 +35,7 @@ class Player:
         new_x = self._x + dx
         new_y = self._y + dy
 
-        if map[new_y][new_x] == "👣" or map[new_y][new_x] == tile or map[new_y][new_x] == '🧪':
+        if map[new_y][new_x] == "👣" or map[new_y][new_x] == tile or map[new_y][new_x] == '🧪' or map[new_y][new_x] == '🪖' or map[new_y][new_x] == '💸':
             ret =True
             map[new_y][new_x] = self._symbol
             map[self._y][self._x] = tile
@@ -43,29 +43,50 @@ class Player:
             self._x = new_x
             self._y = new_y
         elif map[new_y][new_x] == "🗡" :
+            ret =True
+            map[new_y][new_x] = self._symbol
+            if self._damage == Torch._damage :
+                map[self._y][self._x] = "🔥"
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":"🔥 "}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            if self._damage == Bow._damage :
+                map[self._y][self._x] = "🏹"
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":"🏹 "}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            if self._damage == 0 :
+                map[self._y][self._x] = tile
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            self._x = new_x
+            self._y = new_y
             self._damage = Sword._damage
-            ret =True
-            map[new_y][new_x] = self._symbol
-            map[self._y][self._x] = tile
-            data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
-            self._x = new_x
-            self._y = new_y
         elif map[new_y][new_x] == "🔥" :
+            ret =True
+            map[new_y][new_x] = self._symbol
+            if self._damage == Sword._damage :
+                map[self._y][self._x] = "🗡"
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":"🗡 "}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            if self._damage == Bow._damage :
+                map[self._y][self._x] = "🏹"
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":"🏹 "}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            if self._damage == 0 :
+                map[self._y][self._x] = tile
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            self._x = new_x
+            self._y = new_y
             self._damage = Torch._damage
-            ret =True
-            map[new_y][new_x] = self._symbol
-            map[self._y][self._x] = tile
-            data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
-            self._x = new_x
-            self._y = new_y
         elif map[new_y][new_x] == "🏹" :
-            self._damage = Bow._damage
             ret =True
             map[new_y][new_x] = self._symbol
-            map[self._y][self._x] = tile
-            data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            if self._damage == Sword._damage :
+                map[self._y][self._x] = "🗡"
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":"🗡 "}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            if self._damage == Torch._damage :
+                map[self._y][self._x] = "🔥"
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":"🔥 "}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
+            if self._damage == 0 :
+                map[self._y][self._x] = tile
+                data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
             self._x = new_x
             self._y = new_y
+            self._damage = Bow._damage
         elif map[new_y][new_x] == "🐍" :
             if self._damage > 1 :
                 ret =True
@@ -90,13 +111,6 @@ class Player:
                 data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
                 self._x = new_x
                 self._y = new_y
-        elif map[new_y][new_x] == "💸" :
-            ret =True
-            map[new_y][new_x] = self._symbol
-            map[self._y][self._x] = tile
-            data = [{"i": f"{self._y}", "j":f"{self._x}", "content":tile}, {"i": f"{new_y}", "j":f"{new_x}", "content":self._symbol}]
-            self._x = new_x
-            self._y = new_y
         else:
             ret = False
             data = []

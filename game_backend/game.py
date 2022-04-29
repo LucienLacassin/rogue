@@ -8,6 +8,7 @@ from .weapon import Bow
 from .weapon import Torch
 from .treasure import Treasure
 from .Potion import Potion
+from .armor import Armure
 
 
 class Game:
@@ -19,13 +20,13 @@ class Game:
 
         self._player = Player()
         self._player.initPos( self._map )
-        for i in range (25) :
+        for i in range (35) :
             self._monster = Snake()
             self._monster.initPos( self._map )
-        for i in range (5) :
+        for i in range (7) :
             self._monster = Zombie()
             self._monster.initPos( self._map )
-        for i in range (12) :
+        for i in range (15) :
             self._monster = Monster()
             self._monster.initPos( self._map )
         for i in range (4) :
@@ -37,8 +38,11 @@ class Game:
         self._weapon.initPos( self._map )
         self._weapon = Torch()
         self._weapon.initPos( self._map )
-        self._treasure = Treasure()
-        self._treasure.initPos( self._map )
+        for i in range (3) :
+            self._treasure = Treasure()
+            self._treasure.initPos( self._map )
+            self._armor = Armure()
+            self._armor.initPos( self._map )
 
     def getMap(self):
         return self._map

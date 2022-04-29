@@ -28,25 +28,31 @@ window.addEventListener("DOMContentLoaded", (event) => {
         let score = document.getElementById("score");
         newScore = parseInt(score.innerText) + 100;
         score.innerHTML = newScore;
-    };
+    }
 
     function calculScoreMonstre() {
         let score = document.getElementById("score");
         newScore = parseInt(score.innerText) + 400;
         score.innerHTML = newScore;
-    };
+    }
 
     function calculScoreZombie() {
         let score = document.getElementById("score");
         newScore = parseInt(score.innerText) + 1000;
         score.innerHTML = newScore;
-    };
+    }
+
+    function calculScoreTresor() {
+        let score = document.getElementById("score");
+        newScore = parseInt(score.innerText) + 10000;
+        score.innerHTML = newScore;
+    }
 
     function oterVie() {
         let vies = document.getElementById("lives");
         newLives = parseInt(vies.innerText) - 1;
         vies.innerHTML = newLives;
-    };
+    }
 
     function addVie() {
         let vies = document.getElementById("lives");
@@ -55,7 +61,14 @@ window.addEventListener("DOMContentLoaded", (event) => {
             newLives = lives + 1;
         }
         vies.innerHTML = newLives;
-    };
+    }
+
+    function addArmure() {
+        let armor = document.getElementById("armor");
+        armure = parseInt(armor.innerText)
+        newArmor = armure + 1
+        armor.innerHTML = newArmor;
+    }
 
     let nbPotions = 4;
     function compterPotions() {
@@ -70,9 +83,41 @@ window.addEventListener("DOMContentLoaded", (event) => {
             addVie();
             nbPotions -= 1;
         }
-    };
+    }
 
-    let nbSnake = 25;
+    let nbTresor = 3;
+    function compterTresor() {
+        let kazes = document.getElementById("console").getElementsByTagName("span");
+        let n = 0;
+        for (let kaze of kazes) {
+            if (kaze.innerText == '💸 ') {
+                n += 1;
+            }
+        }
+        if (n < nbTresor) {
+            calculScoreTresor();
+            nbTresor -= 1;
+        }
+    }
+
+    let nbArmure = 3;
+    let Armure = 0;
+    function compterArmure() {
+        let kazes = document.getElementById("console").getElementsByTagName("span");
+        let n = 0;
+        for (let kaze of kazes) {
+            if (kaze.innerText == '🪖 ') {
+                n += 1;
+            }
+        }
+        if (n < nbArmure) {
+            addArmure();
+            nbArmure -= 1;
+            Armure += 1;
+        }
+    }
+
+    let nbSnake = 35;
     function compterSnake() {
         let kazes = document.getElementById("console").getElementsByTagName("span");
         let n = 0;
@@ -83,15 +128,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
         if (n < nbSnake) {
             let p = Math.random();
-            if (p < 0.1) {
+            let proba = 0.15 - Armure * 0.05
+            if (p < proba) {
                 oterVie();
             }
             calculScoreSnake();
             nbSnake -= 1;
         }
-    };
+    }
 
-    let nbMonstre = 12;
+    let nbMonstre = 15;
     function compterMonstre() {
         let kazes = document.getElementById("console").getElementsByTagName("span");
         let n = 0;
@@ -102,15 +148,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
         if (n < nbMonstre) {
             let p = Math.random();
-            if (p < 0.25) {
+            let proba = 0.35 - Armure * 0.05
+            if (p < proba) {
                 oterVie();
             }
             calculScoreMonstre();
             nbMonstre -= 1;
         }
-    };
+    }
 
-    let nbZombie = 5;
+    let nbZombie = 7;
     function compterZombie() {
         let kazes = document.getElementById("console").getElementsByTagName("span");
         let n = 0;
@@ -121,20 +168,67 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
         if (n < nbZombie) {
             let p = Math.random();
-            if (p < 0.4) {
+            let proba = 0.5 - Armure * 0.07
+            if (p < proba) {
                 oterVie();
             }
             calculScoreZombie();
             nbZombie -= 1;
         }
+    }
+
+    function displayBow() {
+        let weapon = document.getElementById("weapon");
+        weapon.innerHTML = '🏹';
+    }
+
+    function displayTorch() {
+        let weapon = document.getElementById("weapon");
+        weapon.innerHTML = '🔥';
+    }
+
+    function displaySword() {
+        let weapon = document.getElementById("weapon");
+        weapon.innerHTML = '🗡';
+    }
+
+    function actualWeapon() {
+        let kazes = document.getElementById("console").getElementsByTagName("span");
+        let bow = 1;
+        let sword = 1;
+        let torch = 1;
+        for (let kaze of kazes) {
+            if (kaze.innerText == '🏹 ') {
+                bow = 0;
+            }
+            else if (kaze.innerText == '🗡 ') {
+                sword = 0;
+            }
+            else if (kaze.innerText == '🔥 ') {
+                torch = 0
+            } 
+        }
+        if (torch == 1) {
+            displayTorch();
+        }
+        if (bow == 1) {
+            displayBow();
+        }
+        if (sword == 1) {
+            displaySword();
+        }
     };
+
 
     function compter() {
         compterSnake();
         compterMonstre();
         compterZombie();
         compterPotions();
-    }
+        compterTresor();
+        compterArmure();
+        actualWeapon();
+    };
     
     var btn_n = document.getElementById("go_n");
     btn_n.onclick = function(e) {
