@@ -85,7 +85,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
     }
 
-    let nbTresor = 3;
+    let nbTresor = 0;
     function compterTresor() {
         let kazes = document.getElementById("console").getElementsByTagName("span");
         let n = 0;
@@ -97,6 +97,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
         if (n < nbTresor) {
             calculScoreTresor();
             nbTresor -= 1;
+        }
+        if (n > nbTresor) {
+            nbTresor = n;
         }
     }
 
@@ -218,7 +221,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
             displaySword();
         }
     };
-
 
     function compter() {
         compterSnake();
