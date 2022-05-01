@@ -41,8 +41,7 @@ class Player:
 
         self._randx = x
         self._randy = y
-        print(x)
-        print(y)
+        print((y, x))
 
         self._x = x_init
         self._y = y_init
@@ -67,7 +66,19 @@ class Player:
                     delta_x = random.randint(0, n_col - 1)
                     delta_y = random.randint(0, n_row - 1)
                 map[delta_y][delta_x] = '💸'
-                data = [{"i": f"{delta_y}", "j":f"{delta_x}", "content":'💸'}]
+                data = [{"i": f"{delta_y}", "j":f"{delta_x}", "content":"💸 "}]
+            
+                x = random.randint(0, n_col - 1)
+                y = random.randint(0, n_row - 1)
+
+                while map[y][x] != '👣':
+                        x = random.randint(0, n_col - 1)
+                        y = random.randint(0, n_row - 1)
+
+                self._randx = x
+                self._randy = y
+                print((y, x))
+
         elif map[new_y][new_x] == "🗡" :
             ret =True
             map[new_y][new_x] = self._symbol
